@@ -22,26 +22,23 @@ router.put('/populate/characters', (req, res) => {
    Specie.find({})
       .then(species => {
          species.forEach(spec => {
-            const chars = spec.characters;
+            const chars = [];
             Character.find({ key: spec.character_keys })
                .then(result => {
                   result.forEach(char => {
                      return chars.push(char._id);
                   });
-                  console.log('chars is', chars);
-
-                  const stacks = chars
+                  spec.characters = chars;
+                  spec
                      .save()
-                     .then(savedSpecies => console.log(savedSpecies))
+                     .then(savedSpecies => console.log('species\' character added', savedSpecies))
                      .catch(err => {
                         res
                            .status(500)
                            .send({ error: 'could not save updated Species' });
                      });
-                  Promise.all(stacks)
-                     .then(console.log('promise all completed'))
-                     .catch(err => console.error('error in the Promise All'));
                })
+               .then(res.status(200).send('completed'))
                .catch(err => {
                   error: 'error finding character ids';
                });
