@@ -17,7 +17,8 @@ const Character = mongoose.Schema({
   homeworld: {
     type: ObjectId,
     ref: 'Planet'
-  }
+  },
+  movies: Array
 });
 
 module.exports = mongoose.model('Character', Character);
