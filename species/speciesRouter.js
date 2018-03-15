@@ -7,16 +7,6 @@ const router = express.Router();
 
 // add endpoints here
 
-// const populatePosts = () => {
-//   const posts = readPosts();
-//   const stacks = posts.map(post => {
-//     return new Posts(post).save();
-//   });
-//   return Promise.all(stacks)
-//     .then(console.log('promise all completed'))
-//     .catch(err => console.error('error in the Promise All'));
-// };
-
 router.put('/populate/characters', (req, res) => {
    const { id } = req.params;
    Specie.find({})
