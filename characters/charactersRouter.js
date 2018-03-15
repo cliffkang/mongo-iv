@@ -26,7 +26,10 @@ router.get('/:id', (req, res) => {
             })
          });
       })
-      .catch();
+      .catch(err => {
+         res.status(500);
+         res.send({ error: 'error finding character' });
+      });
 });
 
 router.get('/:id/vehicles', (req, res) => {
@@ -48,13 +51,8 @@ router.get('/', (req, res) => {
    let query = Character.find()
       
    if (tallFemaleFilter) {
-      query.where({ gender: 'female', height: { $gt: 100} });
+      query.where({ gender: 'female', height: { $gt: '100'} });
    }
-
-   // if (yearFilter) {
-   //    const filter = new RegExp(yearFilter)
-   //    query.where({ release_date: filter });
-   // }
 
    query
       .then(characters => {
